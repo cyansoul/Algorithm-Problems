@@ -1,0 +1,32 @@
+/**
+Given a list of numbers that may has duplicate numbers, 
+return all possible subsets
+*/
+class Solution {
+    /**
+     * @param nums: A set of numbers.
+     * @return: A list of lists. All valid subsets.
+     */
+    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] nums) {
+        // write your code here
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if (nums == null || nums.length == 0){
+            return result;
+        }
+        Arrays.sort(nums);
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        
+        public void subHelper(ArrayList<ArrayList<Integer>> result, 
+        ArrayList<Integer> list, int[] nums, int pos){
+            result.add(new ArrayList<Integer>(list));
+            for(int i = pos; i<nums.length(); i++){
+                if (i != pos && nums[i] == nums[i-1]){
+                    continue;
+                }
+                list.add(nums[i]);
+                subHelper(result, list, nums, i+1);
+                nums.remove(list.size()-1);
+            }
+        }
+    }
+}
